@@ -29,6 +29,15 @@ def test_criar_aluno_sucesso():
 
 
 def test_criar_aluno_falha():
-    aluno_invalido = {"id": 3, "nome": "Erro"}
-    response = client.post("/alunos", json=aluno_invalido)
-    assert response.status_code == 400
+    aluno_invalido1 = {"id": 3, "nome": "Erro"}
+    response1 = client.post("/alunos", json=aluno_invalido1)
+    assert response1.status_code == 400
+
+    aluno_invalido2 = {"id": 4, "nome": "Teste", "email": ""}
+    response2 = client.post("/alunos", json=aluno_invalido2)
+    assert response2.status_code == 400
+
+    aluno_invalido3 = {"id": 5, "nome": "Teste"}
+    response3 = client.post("/alunos", json=aluno_invalido3)
+    assert response3.status_code == 400
+

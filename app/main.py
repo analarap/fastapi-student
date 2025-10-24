@@ -3,7 +3,9 @@ from fastapi import FastAPI, HTTPException
 app = FastAPI()
 
 alunos = [
-    {"id": 1, "nome": "Ana Silva", "email": "ana.silva@example.com"}
+    {"id": 1, "nome": "Ana Silva", "email": "ana.silva@example.com"},
+    {"id": 2, "nome": "Ícaro Silva", "email": "icaro.silva@example.com"},
+    {"id": 3, "nome": "Gustavo Silva", "email": "guga.silva@example.com"}
 ]
 
 

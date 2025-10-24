@@ -86,7 +86,3 @@ O repositório contém um workflow do GitHub Actions configurado para executar a
 * Black (formatação de código)
 * Flake8 (análise de estilo)
 * Pytest (testes automatizados)
-
-## Autor
-
-Ana Silva
