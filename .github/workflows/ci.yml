@@ -4,38 +4,45 @@ on:
   push:
     branches: [ main ]
     paths-ignore:
-      - 'README.md'  
-      - 'docs/**' 
-      - 'LICENSE' 
-      - 'CONTRIBUTING.md'
+      - README.md
+      - docs/**
+      - LICENSE
+      - CONTRIBUTING.md
   pull_request:
     branches: [ main ]
     paths-ignore:
-      - 'README.md'       
-      - 'docs/**'
-      - 'LICENSE'   
-      - 'CONTRIBUTING.md'
+      - README.md
+      - docs/**
+      - LICENSE
+      - CONTRIBUTING.md
 
 jobs:
-    ci:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Fazer checkout do código
-              uses: actions/checkout@v4
+  ci:
+    runs-on: ubuntu-latest
 
-            - name: Set up Python
-              uses: actions/setup-python@v4
-              with:
-                  python-version: '3.12.2'
-            
-            - name: Instalar dependências
-              run: pip install -r requirements.txt
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
 
-            - name: Verificar formatação com Black
-              run: black --check .
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
 
-            - name: Verificar linting com Flake8
-              run: flake8 .
+      - name: Instalar dependências com cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - run: pip install -r requirements.txt
 
-            - name: Executar testes com pytest
-              run: pytest
+      - name: Verificar formatação (Black)
+        run: black --check '**/*.py'
+
+      - name: Verificar linting (Flake8)
+        run: flake8
+
+      - name: Executar testes (pytest)
+        run: pytest -q
