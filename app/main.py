@@ -32,7 +32,6 @@ def buscar_aluno(aluno_id: int):
 
 @app.post("/alunos")
 def criar_aluno(aluno: Aluno):
-    # Verifica duplicidade de ID
     if any(a["id"] == aluno.id for a in alunos):
         raise HTTPException(status_code=400, detail="ID já existente")
     alunos.append(aluno.dict())
