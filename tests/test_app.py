@@ -8,11 +8,21 @@ client = TestClient(app)
 @pytest.fixture(autouse=True)
 def reset_alunos():
     alunos.clear()
-    alunos.extend([
-        {"id": 1, "nome": "Ana Silva", "email": "ana.silva@example.com"},
-        {"id": 2, "nome": "Ãcaro Silva", "email": "icaro.silva@example.com"},
-        {"id": 3, "nome": "Gustavo Silva", "email": "guga.silva@example.com"},
-    ])
+    alunos.extend(
+        [
+            {"id": 1, "nome": "Ana Silva", "email": "ana.silva@example.com"},
+            {
+                "id": 2,
+                "nome": "Ícaro Silva",
+                "email": "icaro.silva@example.com",
+            },
+            {
+                "id": 3,
+                "nome": "Gustavo Silva",
+                "email": "guga.silva@example.com",
+            },
+        ]
+    )
 
 
 def test_listar_alunos_sucesso():
