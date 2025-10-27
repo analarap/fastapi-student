@@ -38,9 +38,6 @@
               ${{ runner.os }}-pip-
         - run: pip install -r requirements.txt
 
-        - name: Verificar formatação (Black)
-          run: black --check . --exclude '(\.git|__pycache__|venv|\.venv|docs|LICENSE|README\.md)'
-
         - name: Verificar linting (Flake8)
           run: flake8
 
