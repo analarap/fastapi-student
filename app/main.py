@@ -1,11 +1,19 @@
 from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, EmailStr
 
 app = FastAPI()
+
+
+class Aluno(BaseModel):
+    id: int
+    nome: str
+    email: EmailStr
+
 
 alunos = [
     {"id": 1, "nome": "Ana Silva", "email": "ana.silva@example.com"},
     {"id": 2, "nome": "Ícaro Silva", "email": "icaro.silva@example.com"},
-    {"id": 3, "nome": "Gustavo Silva", "email": "guga.silva@example.com"}
+    {"id": 3, "nome": "Gustavo Silva", "email": "guga.silva@example.com"},
 ]
 
 
@@ -23,8 +31,9 @@ def buscar_aluno(aluno_id: int):
 
 
 @app.post("/alunos")
-def criar_aluno(aluno: dict):
-    if "id" not in aluno or "nome" not in aluno or "email" not in aluno:
-        raise HTTPException(status_code=400, detail="Campos inválidos")
-    alunos.append(aluno)
-    return aluno
+def criar_aluno(aluno: Aluno):
+    # Verifica duplicidade de ID
+    if any(a["id"] == aluno.id for a in alunos):
+        raise HTTPException(status_code=400, detail="ID já existente")
+    alunos.append(aluno.dict())
+    return aluno.dict()

@@ -17,7 +17,9 @@ def test_buscar_aluno_sucesso():
 
 
 def test_buscar_aluno_falha():
-    response = client.get("/alunos/999")
+    response = client.get(
+        "/alunos/999"
+    )
     assert response.status_code == 404
 
 
@@ -40,4 +42,3 @@ def test_criar_aluno_falha():
     aluno_invalido3 = {"id": 5, "nome": "Teste"}
     response3 = client.post("/alunos", json=aluno_invalido3)
     assert response3.status_code == 400
-
