@@ -55,4 +55,3 @@ def test_criar_aluno_falha():
     aluno_invalido3 = {"id": 7, "nome": "Teste"}
     response3 = client.post("/alunos", json=aluno_invalido3)
     assert response3.status_code == 422
-

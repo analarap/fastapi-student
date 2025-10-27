@@ -36,4 +36,3 @@ def criar_aluno(aluno: Aluno):
         raise HTTPException(status_code=400, detail="ID jÃ¡ existente")
     alunos.append(aluno.dict())
     return aluno.dict()
-
