@@ -24,6 +24,7 @@ def reset_alunos():
         ]
     )
 
+
 def test_listar_alunos_sucesso():
     response = client.get("/alunos")
     assert response.status_code == 200
