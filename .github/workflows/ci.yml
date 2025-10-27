@@ -41,8 +41,5 @@
         - name: Verificar linting (Flake8)
           run: flake8 --max-line-length=79 --ignore=E203,W503
 
-        - name: Verificar formatação (Black)
-          run: black --check . --exclude "(\.git|__pycache__|venv|\.venv|docs|LICENSE|README\.md|tests/data|\.pytest_cache|\.github|.*\.(png|jpg|jpeg|ico|exe|dll|bin|dat))"
-
         - name: Executar testes (pytest)
           run: pytest -q

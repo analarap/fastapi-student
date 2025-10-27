@@ -1,4 +1,4 @@
-import pytest
+﻿import pytest
 from fastapi.testclient import TestClient
 from app.main import app, alunos
 
@@ -10,7 +10,7 @@ def reset_alunos():
     alunos.clear()
     alunos.extend([
         {"id": 1, "nome": "Ana Silva", "email": "ana.silva@example.com"},
-        {"id": 2, "nome": "Ícaro Silva", "email": "icaro.silva@example.com"},
+        {"id": 2, "nome": "Ãcaro Silva", "email": "icaro.silva@example.com"},
         {"id": 3, "nome": "Gustavo Silva", "email": "guga.silva@example.com"},
     ])
 
@@ -55,3 +55,4 @@ def test_criar_aluno_falha():
     aluno_invalido3 = {"id": 7, "nome": "Teste"}
     response3 = client.post("/alunos", json=aluno_invalido3)
     assert response3.status_code == 422
+
