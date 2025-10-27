@@ -1,29 +1,41 @@
-name: CI
+name: CI Pipeline
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - 'README.md'  
+      - 'docs/**' 
+      - 'LICENSE' 
+      - 'CONTRIBUTING.md'
+  pull_request:
+    branches: [ main ]
+    paths-ignore:
+      - 'README.md'       
+      - 'docs/**'
+      - 'LICENSE'   
+      - 'CONTRIBUTING.md'
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+    ci:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Fazer checkout do código
+              uses: actions/checkout@v4
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+            - name: Set up Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: '3.12.2'
+            
+            - name: Instalar dependências
+              run: pip install -r requirements.txt
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
+            - name: Verificar formatação com Black
+              run: black --check .
 
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
+            - name: Verificar linting com Flake8
+              run: flake8 .
 
-      - name: Run Black
-        run: black --check .
-
-      - name: Run Flake8
-        run: flake8 .
-
-      - name: Run Pytest
-        run: pytest
+            - name: Executar testes com pytest
+              run: pytest
